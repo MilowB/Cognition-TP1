@@ -8,7 +8,7 @@ import env
 def main():
     strat = Strategy()
     agent = Agent(strat)
-    env1 = env.Env({'0': 1, '1': 2})
+    env1 = env.Env({'0': "1", '1': "2"})
     steps = FLAGS.steps
     i = 0
 
