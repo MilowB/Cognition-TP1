@@ -15,6 +15,7 @@ def main():
         action = agent.chooseExperience(i, steps)
         print("action choisie : " + str(action)) # @debug
         result = env1.getResult(action)
+        #print("result  : " + str(result)) # @debug
         agent.get_reward(result)
         i += 1
 
