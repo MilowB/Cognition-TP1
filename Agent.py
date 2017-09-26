@@ -6,15 +6,15 @@ class Agent():
     def __init__(self, strategy):
         self.strategy = strategy
         self.last_action = None
-        self.sum_rew = 0
+        self.sum_rew = 1
 
         #Association meilleure action / meilleure recompense
         self.best_action = random.randint(0, 1)
         self.best_reward = -math.inf
 
-    def chooseExperience(self, r, ite, ite_max):
+    def chooseExperience(self, ite, ite_max):
         action = None
-        threshold = curiosity(ite, ite_max, sum_rew)
+        threshold = curiosity(ite, ite_max, self.sum_rew)
         epsilon = random.random()
 
         if epsilon < threshold:
