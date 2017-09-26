@@ -27,7 +27,7 @@ class Agent():
 
 
     def get_reward(self, result):
-        reward = self.strategy.get_reward(result)
+        reward = self.strategy.get_reward(self.last_action, result)
         if reward > self.best_reward:
             self.best_reward = reward
             self.best_action = self.last_action
