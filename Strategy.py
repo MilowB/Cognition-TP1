@@ -8,5 +8,5 @@ class Strategy():
         self.motivation["22"] = -1
         
     def get_reward(self, action, result):
-        command = str(action) + string(result)
+        command = str(action) + str(result)
         return self.motivation[command]

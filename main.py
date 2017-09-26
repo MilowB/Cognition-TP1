@@ -14,7 +14,7 @@ def main():
 
     while i < steps:
         action = agent.chooseExperience(i, steps)
-        result = env.getResult(action)
+        result = env1.getResult(action)
         agent.get_reward(result)
         i += 1
 
