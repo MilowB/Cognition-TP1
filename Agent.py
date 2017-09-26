@@ -13,7 +13,7 @@ class Agent():
         self.best_reward = -math.inf
 
     def chooseExperience(self, ite, ite_max):
-        action = None
+
         threshold = curiosity(ite, ite_max, self.sum_rew)
         epsilon = random.random()
 

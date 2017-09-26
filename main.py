@@ -1,4 +1,6 @@
 import argparse
+from Strategy import *
+from Agent import *
 
 import env
 import Agent
@@ -7,7 +9,8 @@ import Strategy
 
 
 def main():
-
+    strat = Strategy()
+    agent = Agent(strat)
     env1 = env.Env({'0': 1, '1': 2})
     a1 = Agent.Agent(Strategy.Strategy())
     steps = FLAGS.steps
@@ -15,7 +18,9 @@ def main():
 
     while i < steps:
         print("Salutation, je choisis l'experience")
-        a1.chooseExperience(i,steps)
+        action = agent.chooseExperience(i, steps)
+        result = env.getResult(action)
+        agent.get_reward(result)
         i += 1
 
 if __name__ == '__main__':
