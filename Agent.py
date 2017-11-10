@@ -1,14 +1,14 @@
 from Util import *
 import random
 
-class Agent():
 
+class Agent():
     def __init__(self, strategy):
         self.strategy = strategy
         self.last_action = None
         self.sum_rew = 1
 
-        #Association meilleure action / meilleure recompense
+        # Association meilleure action / meilleure recompense
         self.best_action = random.randint(0, 1)
         self.best_reward = -math.inf
 
@@ -25,9 +25,9 @@ class Agent():
         self.last_action = action
         return action
 
-
     def get_reward(self, result):
-        reward = self.strategy.get_reward(result)
+        reward = self.strategy.get_reward(result, self.last_action)
         if reward > self.best_reward:
             self.best_reward = reward
             self.best_action = self.last_action
+        return reward
