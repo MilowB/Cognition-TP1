@@ -4,4 +4,4 @@ class Env():
 
 
     def getResult(self, action):
-        return self.action2result[action]
+        return self.action2result[str(action)]
