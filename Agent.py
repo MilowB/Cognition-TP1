@@ -1,36 +1,66 @@
-from Util import *
 import random
-
-class Agent():
-
+import math
+from Util import *
+from sequence import *
+from Actions import *
+ 
+class AgentDev():
     def __init__(self, strategy):
+        self.historic = []
+        self.sequence = None
+        self.ObjectSequence = None
         self.strategy = strategy
-        self.last_action = None
-        self.sum_rew = 1
-
-        #Association meilleure action / meilleure recompense
-        self.best_action = random.randint(0, 1)
+        self.last_actions = None
+        self.best_actions = Actions().random(1)
+        self.in_test = None
         self.best_reward = -math.inf
+        self.sum_rew = 0
 
-    def chooseExperience(self, ite, ite_max):
+        #mode
+        self.greedy = True
+
+    def chooseExperience(self, result, ite, ite_max):
         threshold = curiosity(ite, ite_max, self.sum_rew)
         epsilon = random.random()
 
-        #print("threshold : " + str(threshold))
-        #print("epsilon : " + str(epsilon))
+        action = None
         if epsilon < threshold:
-            print("Ceci est une action aleatoire")
-            action = random.randint(0, 1)
+            action = Actions().random(1)
         else:
-            action = self.best_action
+            if not self.in_test is None and not self.in_test.has_next():
+                if self.in_test > self.best_actions:
+                    print(self.best_actions.reward, " < ", self.in_test.reward)
+                    self.best_actions = self.in_test
+                    self.best_actions.reset_iterator()
+                    self.greedy = False
+                else:
+                    self.greedy = True
+            if not self.best_actions.has_next():
+                self.in_test = self.best_actions.random_modification()
+                self.best_actions.reset_iterator()
+            todo = self.best_actions
+            if not self.greedy:
+                todo = self.in_test
+            action = todo
 
-        self.last_action = action
-        return action
-
+        self.last_actions = action
+        
+        ret = action.next_action()
+        return ret
 
     def get_reward(self, result):
-        reward = self.strategy.get_reward(self.last_action, result)
-        print("reward  : " + str(reward)) # @debug
+        reward = self.strategy.get_reward(self.last_actions.current_action(), result)
+        self.sum_rew += reward
+        self.historic.append([self.last_actions, reward])
+
+        self.last_actions.cumul_reward(reward)
+        print("self.best_actions : ", self.best_actions, ", reward : ", self.best_actions.reward)
+
+
+        if not self.last_actions is None and not self.last_actions.has_next():
+            self.last_actions.remove_badest()
+
         if reward > self.best_reward:
+            self.best_actions = self.last_actions
             self.best_reward = reward
-            self.best_action = self.last_action
+
