@@ -2,9 +2,9 @@ from map import *
 from gui import *
 
 class Grid:
-    def __init__(self, g, m, a, d):
+    def __init__(self, g, m, a, d, name):
         self.display = d
-        self._name = "Grid"
+        self._name = name
         self.action_space = 2
         self.gui = g
         self.map = m
@@ -24,23 +24,16 @@ class Grid:
         #Mise a jour de la position courante
         agent.setCurrentPosition(square)
 
-        #Regle de l'environnement : alternance e1 / e2 pour retour r2
-        #La case objectif bouge pour de manière à faire apprendre à l'agent cette alternance
-        if not square.equal(squareTmp) and self.map.isOnObjective(agent):
-            self.map.moveObjOnEmptySquare()            
-        elif square.equal(squareTmp) and self.map.isOnObjective(agent):
-            pass
-        elif square.equal(squareTmp):
-            self.map.moveObjOnEmptySquare()
-
         if self.display:
             self.gui.update(self.map)
             self.gui.display()
 
-        #Si l'agent n'a pas bougé alors il a rencontré un mur
-        if square.equal(squareTmp):
-            return 1
-        return 2
+        result = None
+        if self._name == "env1":
+            result = self.result_for_env1(square, squareTmp, agent)
+        else:
+            result = self.result_generic_env(square, squareTmp, agent)
+        return result
     
     def disableDisplay(self):
         self.display = False
@@ -65,3 +58,33 @@ class Grid:
     '''
     def squarePosition(self, numSquare):
         return self.map.squarePosition(numSquare)
+
+
+    '''
+    Objectif : indique le bon retour de l'environnement
+    '''
+    def result_generic_env(self, square, old_square, agent):
+        #Si l'agent n'a pas bougé alors il a rencontré un mur
+        if square.equal(old_square):
+            return 1
+        return 2
+
+
+    '''
+    Objectif : indique le bon retour de l'environnement spécifiquement par rapport à l'env1
+    qui a des règles un peu particulières sur l'alternance e1 / e2
+    '''
+    def result_for_env1(self, square, old_square, agent):
+        #Regle de l'environnement : alternance e1 / e2 pour retour r2
+        #La case objectif bouge pour de manière à faire apprendre à l'agent cette alternance
+        if not square.equal(old_square) and self.map.isOnObjective(agent):
+            self.map.moveObjOnEmptySquare()
+        elif square.equal(old_square) and self.map.isOnObjective(agent):
+            pass
+        elif square.equal(old_square):
+            self.map.moveObjOnEmptySquare()
+
+        #Si l'agent n'a pas bougé alors il a rencontré un mur
+        if square.equal(old_square):
+            return 1
+        return 2

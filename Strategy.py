@@ -21,20 +21,15 @@ class Strategy():
 
 """
 
-#TODO: generic class
-
 class Strategy():
-    def __init__(self):
+    def __init__(self, motivation):
         """
-        @motivation: concatenation of (result + action)
+        @_motivation: concatenation of (action + result)
+        but here we do not care about action, we only need the result to give a reward to the agent
         """
-        self.motivation = {}
-        self.motivation["01"] = -1
-        self.motivation["02"] = 1
-        self.motivation["11"] = -1
-        self.motivation["12"] = 1
+        self._motivation = motivation
 
 
     def get_reward(self, result, action):
-        command = str(action) + str(result)
-        return self.motivation[command]
+        command = str(result)
+        return self._motivation[command]

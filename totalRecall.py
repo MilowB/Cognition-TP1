@@ -24,7 +24,7 @@ class TotalRecall:
         self.actions = []
         self.babillage = True
         self.inter = None
-        self.nbacts = 2
+        self.nbacts = 4
         self.motiv = 0
         self.last = False
 
@@ -34,7 +34,7 @@ class TotalRecall:
     def chooseExperience(self, ite, ite_max):  # TODO : Greatter babillage
         # TODO : USE MORE MEMORY
         # babillage
-        if len(self.actions) < 45:
+        if len(self.actions) < 40:
             action = random.randint(0, self.nbacts - 1)
             self.last_action = action
             self.inter = Interaction([action], 0, 1)  # TODO : Update if exist

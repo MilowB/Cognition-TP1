@@ -18,45 +18,27 @@ from env_dif import *
 
 
 def main():
-    __ENVIRONMENT__ = "env1"
+    __ENVIRONMENT__ = "maze"
     # Afficher ou non l'interface
     __GUI__ = True
-
-    ''''''''''''''''''''''''''''''''''''
-    ''''''''''''''''''''''''''''''''''''
-
-    strat = Strategy()
-    agent = AgentDev(strat)
 
     # Instanciation des builders
     envbuilder = EnvBuilder(__ENVIRONMENT__)
     gui, map, agents = envbuilder.build()
-
     # Creation de la grille
-    env = Grid(gui, map, agents, __GUI__)
+    env = Grid(gui, map, agents, __GUI__, "maze")
 
-    # Pour une question de généricité les valeurs des actions n'ont pas été modifiées dans la grille
-    # Action monter = 0, action descendre = 2
-    histo = {}
-    cpt = 0
-    result = 0
-    while cpt < 10:
-        action = agent.chooseExperience(result, cpt, 20)
-        result = env.step(agents[0], action)
-        agent.get_reward(result)
-        cpt += 1
+    motivation = {"1": -1, "2": 1}
+    strat = Strategy(motivation)
+    # agent = SmartAgent(strat, 100, ["▲", "▼", "►", "◄"])
 
-    print("Final best action : ", agent.best_actions)
+    # agent = SmartAgent(strat, 20, ["▲", "▼"])
+    # env1 = Env({'0': "1", '1': "2"})
 
-    strat = Strategy()
+    #    agent = SmartAgent(strat, 20, ["▲", "▼"])
+    agent = TotalRecall(strat, ["▲", "▼", "▶", "◀"])
 
-    #agent = SmartAgent(strat, 20, ["▲", "▼"])
-    #env1 = Env({'0': "1", '1': "2"})
-
-#    agent = SmartAgent(strat, 20, ["▲", "▼"])
-    agent = TotalRecall(strat, ["▲", "▼" ,"▶","◀","◘","▬"])
-
-    envd = Env_Dif()
+    #envd = Env_Dif()
 
     steps = FLAGS.steps
     i = 0
@@ -64,9 +46,11 @@ def main():
     result = 0
     while i < steps:
         action = agent.chooseExperience(i, steps)
-        result = envd.getResult(str(action))
+        # result = envd.getResult(str(action))
+        result = env.step(agents[0], action)
         reward = agent.get_reward(result)
         agent.memory()
+        agent.tracer(reward,i)
         if FLAGS.debug:
             print("--------------------------")
             print("J'ai choisis : e" + str(action))
@@ -74,13 +58,8 @@ def main():
             print("Pour : " + str(reward) + " pts")
             agent.pres()
 
-        agent.tracer(reward, i)
         i += 1
-    
-    print("sequences : ", agent.sequences)
-    for seq in agent.sequences:
-        print(seq)
-    
+    agent.tracer(reward, i)
 
     print(agent.max_inter(agent.interactions))
     # agent.show_inter()
@@ -92,18 +71,18 @@ def main():
     # templ = []
     # print("---- Test succes rate ----")
     # for it in range(0, 100):
-    #   templ += agent.best_seq
+    #     templ += agent.max_inter(agent.interactions)
     # n = 0
-
+    #
     # for action in templ:
-    #  if agent.get_reward(envd.getResult(action)) > 0:
-    #       n += 1
-    # print("Success rate is :" + str(round((n/len(templ)*100),0))+" %")
+    #     if agent.get_reward(envd.getResult(action)) > 0:
+    #         n += 1
+    # print("Success rate is :" + str(round((n / len(templ) * 100), 0)) + " %")
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--steps', type=int, default=500,
+    parser.add_argument('--steps', type=int, default=1500,
                         help='number of steps')
     parser.add_argument('--debug', type=bool, default=False,
                         help='Put the debug display')
