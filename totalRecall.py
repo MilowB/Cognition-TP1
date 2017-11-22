@@ -155,7 +155,7 @@ class TotalRecall:
         self.trace += mess + str(self.symb[self.last_action]) + '\x1b[0m' + space
         self.ite += str(i) + " "
 
-    def purge(self):  # TODO : Better heuristic 
+    def purge(self):  # TODO : Better heuristic
         topur = self.max_inter(self.interactions)
         acts = topur.action[:]
 
