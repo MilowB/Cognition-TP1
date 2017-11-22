@@ -29,6 +29,7 @@ class Strategy():
         """
         self._motivation = motivation
 
+
     def get_reward(self, result, action):
         command = str(result)
         return self._motivation[command]

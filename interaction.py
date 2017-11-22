@@ -4,10 +4,16 @@ class Interaction:
         self.result = r
         self.weight = w
         self.evaporation = 0.95
+        self.nb = 1
+        self.sum = 0
 
     def maj(self, res):
-        if res < self.result:
-            self.weight -= 1
-        else:
-            self.weight += 1
+        self.nb += 1
+        self.sum += res
+
+        self.weight += 1
         self.weight *= self.evaporation
+        self.result = self.sum/self.nb
+
+    def __str__(self) -> str:
+        return str(self.action) + " | " + str(self.result) + " | " + str(self.weight)
