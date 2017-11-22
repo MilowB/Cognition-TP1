@@ -5,6 +5,7 @@ class Interaction:
         self.weight = w
 
     def maj(self, res):
+        
         if res < self.result:
             self.weight -= 1
         else:

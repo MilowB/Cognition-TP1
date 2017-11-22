@@ -29,12 +29,11 @@ class SmartAgent:
                 if epsilon < threshold:
                     action = random.randint(0, 1)
                     self.last_action = action
-                    print("Je Pars pour une aventure " + str(ite))
+                    #print("Je Pars pour une aventure " + str(ite))
                     return action
                 else:
                     self.todo = self.find_seq(self.vals)
                     if len(self.todo) == 0:
-                        print("I'm OUT")
                         action = random.randint(0, 1)
                     else:
                         action = self.todo.pop(0)
