@@ -7,6 +7,7 @@ class Agent():
         self.strategy = strategy
         self.last_action = None
         self.sum_rew = 1
+        self.epsilon = 0.05
 
         #Association meilleure action / meilleure recompense
         self.best_action = random.randint(0, 1)
