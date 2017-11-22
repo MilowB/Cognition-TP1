@@ -17,9 +17,8 @@ class SmartAgent:
         self.ite = ""
 
     def chooseExperience(self, ite, ite_max):
-
         if len(self.actions) < self.mem:
-            action = random.randint(0, 1)
+            action = random.randint(0, 3)
             self.last_action = action
             return action
         else:

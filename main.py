@@ -16,40 +16,19 @@ from env_dif import *
 
 
 def main():
-    
-    __ENVIRONMENT__ = "env1"
+    __ENVIRONMENT__ = "maze"
     #Afficher ou non l'interface
     __GUI__ = True
-
-    ''''''''''''''''''''''''''''''''''''
-    ''''''''''''''''''''''''''''''''''''
-
-    strat = Strategy()
-    agent = AgentDev(strat)
 
     #Instanciation des builders
     envbuilder = EnvBuilder(__ENVIRONMENT__)
     gui, map, agents = envbuilder.build()
-
     #Creation de la grille
-    env = Grid(gui, map, agents, __GUI__)
-    
-    #Pour une question de généricité les valeurs des actions n'ont pas été modifiées dans la grille
-    #Action monter = 0, action descendre = 2
-    histo = {}
-    cpt = 0
-    result = 0
-    while cpt < 10:
-        action = agent.chooseExperience(result, cpt, 20)
-        result = env.step(agents[0], action)
-        agent.get_reward(result)
-        cpt += 1
+    env = Grid(gui, map, agents, __GUI__, "maze")
 
-    print("Final best action : ", agent.best_actions)
-
-    '''
-    strat = Strategy()
-    agent = SmartAgent(strat, 20, ["▲", "▼"])
+    motivation = {"1": -1, "2": 1}
+    strat = Strategy(motivation)
+    agent = SmartAgent(strat, 100, ["▲", "▼", "►", "◄"])
 
     env1 = Env({'0': "1", '1': "2"})
     envd = Env_Dif()
@@ -61,7 +40,8 @@ def main():
     while i < steps:
 
         action = agent.chooseExperience(i, steps)
-        result = envd.getResult(str(action))
+        #result = envd.getResult(str(action))
+        result = env.step(agents[0], action)
         reward = agent.get_reward(result)
         agent.memory()
         if FLAGS.debug:
@@ -71,20 +51,15 @@ def main():
             print("Pour : " + str(reward) + " pts")
             agent.pres()
 
-        agent.tracer(reward, i)
-        i += 1
-    
-    print("sequences : ", agent.sequences)
-    for seq in agent.sequences:
-        print(seq)
-    '''
+        i += 1    
+    agent.tracer(reward, i)
 
     print(agent.best_seq)
     agent.show_trace()
 
     templ = []
     print("---- Test succes rate ----")
-    for it in range(0, 100):
+    for it in range(0, 300):
         templ += agent.best_seq
     n = 0
 
@@ -95,7 +70,7 @@ def main():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--steps', type=int, default=500,
+    parser.add_argument('--steps', type=int, default=3000,
                         help='number of steps')
     parser.add_argument('--debug', type=bool, default=False,
                         help='Put the debug display')
