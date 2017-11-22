@@ -2,21 +2,25 @@ import argparse
 from Strategy import *
 from Agent import *
 from SmartAgent import *
+from totalRecall import *
 from env import *
 from env_dif import *
 
 
 def main():
     strat = Strategy()
-    agent = SmartAgent(strat, 20, ["▲", "▼"])
-    env1 = Env({'0': "1", '1': "2"})
+    #agent = SmartAgent(strat, 20, ["▲", "▼"])
+    #env1 = Env({'0': "1", '1': "2"})
+
+#    agent = SmartAgent(strat, 20, ["▲", "▼"])
+    agent = TotalRecall(strat, ["▲", "▼" ,"▶","◀","◘","▬"])
+
     envd = Env_Dif()
 
     steps = FLAGS.steps
     i = 0
 
     while i < steps:
-
         action = agent.chooseExperience(i, steps)
         result = envd.getResult(str(action))
         reward = agent.get_reward(result)
@@ -31,19 +35,24 @@ def main():
         agent.tracer(reward, i)
         i += 1
 
-    print(agent.best_seq)
+
+    print(agent.max_inter(agent.interactions))
+    #agent.show_inter()
+#    agent.purge()
+   # print(agent.best_seq)
     agent.show_trace()
+    print(agent.motiv)
 
-    templ = []
-    print("---- Test succes rate ----")
-    for it in range(0, 100):
-        templ += agent.best_seq
-    n = 0
+   # templ = []
+    #print("---- Test succes rate ----")
+    #for it in range(0, 100):
+     #   templ += agent.best_seq
+    #n = 0
 
-    for action in templ:
-        if agent.get_reward(envd.getResult(action)) > 0:
-            n += 1
-    print("Success rate is :" + str(round((n/len(templ)*100),0))+" %")
+   # for action in templ:
+      #  if agent.get_reward(envd.getResult(action)) > 0:
+     #       n += 1
+    #print("Success rate is :" + str(round((n/len(templ)*100),0))+" %")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
