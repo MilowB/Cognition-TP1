@@ -28,7 +28,7 @@ def main():
     # Creation de la grille
     env = Grid(gui, map, agents, __GUI__, "maze")
 
-    motivation = {"1": -1, "2": 1}
+    motivation = {"01": -10, "02": 5, "11": -1, "12": -2, "22": -3, "32": -3}
     strat = Strategy(motivation)
     # agent = SmartAgent(strat, 100, ["▲", "▼", "►", "◄"])
 
@@ -36,7 +36,7 @@ def main():
     # env1 = Env({'0': "1", '1': "2"})
 
     #    agent = SmartAgent(strat, 20, ["▲", "▼"])
-    agent = TotalRecall(strat, ["▲", "▼", "▶", "◀"])
+    agent = TotalRecall(strat, ["▲", "■", "▶", "◀"])
 
     #envd = Env_Dif()
 
@@ -83,7 +83,7 @@ def main():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--steps', type=int, default=10000,
+    parser.add_argument('--steps', type=int, default=5000,
                         help='number of steps')
     parser.add_argument('--debug', type=bool, default=False,
                         help='Put the debug display')

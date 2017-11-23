@@ -34,6 +34,8 @@ class TotalRecall:
     # TODO : find seq ?
 
     def chooseExperience(self, ite, ite_max):  # TODO : Greatter babillage
+        if ite > ite_max - 50:
+            time.sleep(0.2)
         # TODO : USE MORE MEMORY
         # babillage
         if len(self.actions) < 40:
@@ -43,7 +45,6 @@ class TotalRecall:
             return action
 
         else:
-
             if len(self.todo) == 0:
                 threshold = curiosity(ite, ite_max, 1)
                 epsilon = random.random()
@@ -55,8 +56,6 @@ class TotalRecall:
                     return self.last_action
                 else:
                     self.inter = self.purge()
-                    print("inter : ", self.inter)
-                    time.sleep(2)
                     self.todo = self.inter.action[:]
                     self.last_action = self.todo.pop(0)
                     # print("PURGE ----> ",self.last_action)

@@ -62,6 +62,7 @@ class SmartAgent:
         if len(self.vals) > self.mem:
             self.vals.pop(0)
 
+    #Trouve la plus grande sequence positive
     def find_seq(self, vals):
         max = 0
         index = []

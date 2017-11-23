@@ -31,5 +31,5 @@ class Strategy():
 
 
     def get_reward(self, result, action):
-        command = str(result)
+        command = str(action) + str(result)
         return self._motivation[command]

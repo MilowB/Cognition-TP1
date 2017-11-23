@@ -1,5 +1,7 @@
+from turn import *
+from orientation import *
+
 class Map:
-    
     def __init__(self):
         self.num = id(self)
         self.squares = []
@@ -44,7 +46,19 @@ class Map:
 
     Retour : Square - case sur laquelle est l'agent après son déplacement
     '''
-    def moveAgent(self, agent, direction):
+    def moveAgent(self, agent):
+        self.notTouched()
+        direction = None
+        ori = agent.orientation
+        if ori == Orientation.NORTH:
+            direction = 0
+        elif ori == Orientation.EST:
+            direction = 1
+        elif ori == Orientation.SOUTH:
+            direction = 2
+        elif ori == Orientation.WEST:
+            direction = 3
+
         for sq in self.squares:
             if sq.isHere(agent):
                 if sq.neighbors[direction] != None and sq.neighbors[direction].block != "B":
@@ -52,6 +66,54 @@ class Map:
                     sq.unfill(agent)
                     return sq.neighbors[direction]
                 return sq
+
+    def turnAgent(self, agent, orientation):
+        self.notTouched()
+        if orientation == Turn.RIGHT:
+            new_orientation = agent.orientation.value + 1
+        elif orientation == Turn.LEFT:
+            new_orientation = agent.orientation.value - 1
+        if new_orientation < 0:
+            new_orientation = 3
+        elif new_orientation > 3:
+            new_orientation = 0
+        agent.turn(new_orientation)
+    
+    '''
+    directions : 
+    0 - haut
+    1 - droite
+    2 - bas
+    3 - gauche
+
+    Retour : Square - case que l'agent a touché
+    '''
+    def touch(self, agent):
+        direction = None
+        ori = agent.orientation
+        if ori == Orientation.NORTH:
+            direction = 0
+        elif ori == Orientation.EST:
+            direction = 1
+        elif ori == Orientation.SOUTH:
+            direction = 2
+        elif ori == Orientation.WEST:
+            direction = 3
+
+        for sq in self.squares:
+            if sq.isHere(agent):
+                if sq.neighbors[direction] != None:
+                    self.notTouched()
+                    sq.neighbors[direction].touched = True
+                    return sq.neighbors[direction]
+                return None
+
+    '''
+    Objectif : Remet tous les touched à False
+    '''
+    def notTouched(self):
+        for sq in self.squares:
+            sq.touched = False
 
     '''
     Objectif : @debug
