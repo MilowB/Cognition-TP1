@@ -1,5 +1,7 @@
 from Util import *
 import random
+import math
+import time
 from resAction import ResAction
 from interaction import Interaction
 
@@ -24,7 +26,7 @@ class TotalRecall:
         self.actions = []
         self.babillage = True
         self.inter = None
-        self.nbacts = 4
+        self.nbacts = len(symb)
         self.motiv = 0
         self.last = False
 
@@ -53,6 +55,8 @@ class TotalRecall:
                     return self.last_action
                 else:
                     self.inter = self.purge()
+                    print("inter : ", self.inter)
+                    time.sleep(2)
                     self.todo = self.inter.action[:]
                     self.last_action = self.todo.pop(0)
                     # print("PURGE ----> ",self.last_action)
@@ -103,7 +107,7 @@ class TotalRecall:
             if self.interactions[i].action[0] == self.last_action:
                 worth.append(self.interactions[i])
 
-        if random.randint(0, 4) == 0:
+        if random.randint(0, self.nbacts - 1) == 0:
             good = worth[random.randint(0, len(worth)-1)]
         else:
             good = self.max_inter(worth)
@@ -129,12 +133,12 @@ class TotalRecall:
             print(self.interactions[i])
 
     def max_inter(self, inters):
-        max = -9999
+        max = -math.inf
         index = 0
 
         for i in range(0, len(inters)):
-            if int(inters[i].result) * int(inters[i].nb) > int(max):
-                max = int(inters[i].result) * int(inters[i].weight)
+            if int(inters[i].result) * int(inters[i].weight) > float(max):
+                max = float(inters[i].result) * float(inters[i].weight)
                 index = i
         return inters[index]
 

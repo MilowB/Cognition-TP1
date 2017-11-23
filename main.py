@@ -65,7 +65,8 @@ def main():
     # agent.show_inter()
     #    agent.purge()
     # print(agent.best_seq)
-    agent.show_trace()
+
+    #agent.show_trace()
     print(agent.motiv)
 
     # templ = []
@@ -82,7 +83,7 @@ def main():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--steps', type=int, default=1500,
+    parser.add_argument('--steps', type=int, default=10000,
                         help='number of steps')
     parser.add_argument('--debug', type=bool, default=False,
                         help='Put the debug display')
