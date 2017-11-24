@@ -14,11 +14,12 @@ from totalRecall import *
 from env import *
 from envBuilder import *
 from grid import *
+import time
 from env_dif import *
 
 
 def main():
-    __ENVIRONMENT__ = "maze"
+    __ENVIRONMENT__ = "env1"
     # Afficher ou non l'interface
     __GUI__ = True
 
@@ -26,18 +27,18 @@ def main():
     envbuilder = EnvBuilder(__ENVIRONMENT__)
     gui, map, agents = envbuilder.build()
     # Creation de la grille
-    env = Grid(gui, map, agents, __GUI__, "maze")
+    env = Grid(gui, map, agents, __GUI__, __ENVIRONMENT__)
 
     motivation = {"1": -1, "2": 1}
+
+
     strat = Strategy(motivation)
     # agent = SmartAgent(strat, 100, ["▲", "▼", "►", "◄"])
 
     # agent = SmartAgent(strat, 20, ["▲", "▼"])
-    # env1 = Env({'0': "1", '1': "2"})
-
-    #    agent = SmartAgent(strat, 20, ["▲", "▼"])
-    agent = TotalRecall(strat, ["▲", "▼", "▶", "◀"])
-
+#    env = Env({'0': "1", '1': "2"})
+    #  agent = SmartAgent(strat, 20, ["▲", "▼"])
+    agent = TotalRecall(strat, ["▲", "▼"])
     #envd = Env_Dif()
 
     steps = FLAGS.steps
@@ -46,17 +47,19 @@ def main():
     result = 0
     while i < steps:
         action = agent.chooseExperience(i, steps)
-        # result = envd.getResult(str(action))
-        result = env.step(agents[0], action)
+       # result = envd.getResult(str(action))
+        result = env.step(agents[0], action*2)
+
         reward = agent.get_reward(result)
         agent.memory()
-        agent.tracer(reward,i)
+        agent.tracer(reward, i)
+        #time.sleep(0.3)
         if FLAGS.debug:
             print("--------------------------")
-            print("J'ai choisis : e" + str(action))
+            print("J'ai choisis : " + agent.symb[action])
             print("J'ai eu : r" + str(result))
             print("Pour : " + str(reward) + " pts")
-            agent.pres()
+            # agent.pres()
 
         i += 1
     agent.tracer(reward, i)

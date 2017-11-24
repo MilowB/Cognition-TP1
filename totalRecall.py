@@ -24,7 +24,7 @@ class TotalRecall:
         self.actions = []
         self.babillage = True
         self.inter = None
-        self.nbacts = 4
+        self.nbacts = 2
         self.motiv = 0
         self.last = False
 
@@ -103,7 +103,7 @@ class TotalRecall:
             if self.interactions[i].action[0] == self.last_action:
                 worth.append(self.interactions[i])
 
-        if random.randint(0, 4) == 0:
+        if random.randint(0, self.nbacts-1) == 0:
             good = worth[random.randint(0, len(worth)-1)]
         else:
             good = self.max_inter(worth)
