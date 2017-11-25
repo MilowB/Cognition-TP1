@@ -19,8 +19,9 @@ from grid import *
 from env_dif import *
 
 
+
 def main():
-    __ENVIRONMENT__ = "long_maze"
+    __ENVIRONMENT__ = "large_maze"
     # Afficher ou non l'interface
     __GUI__ = True
 

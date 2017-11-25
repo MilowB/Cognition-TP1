@@ -14,13 +14,16 @@ def swap(action, nb):
     return random.choice(of)
 
 
+'''
+Résultat cohérent et correct pour tous les env présents excepté env1
+'''
 class BasicAgent:
     def __init__(self, strategy, symb):
         self.strategy = strategy
         self._symb = symb
         self._memory = []
         self._interactions = []
-        self._actions = self.allActions(len(self._symb) + 3)
+        self._actions = self.allActions(len(self._symb))
         self._executer = None
         self._lastAction = None
         self._lastActs = None
