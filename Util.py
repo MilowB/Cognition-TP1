@@ -5,3 +5,7 @@ def curiosity(ite, itemax, sum_rew):
         sum_rew += 1
     stochas = (math.exp(-4 * float(ite) / float(itemax))) / abs(sum_rew)
     return stochas
+
+def curiosity(ite, itemax):
+    stochas = (math.exp(-4 * float(ite) / float(itemax)))
+    return stochas

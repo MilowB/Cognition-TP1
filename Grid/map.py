@@ -67,6 +67,10 @@ class Map:
                     return sq.neighbors[direction]
                 return sq
 
+    '''
+    Objectif : Tourner l'agent dans la direction voulue
+    Param : Agent - agent à tourner, Orientation - direction dans laquelle tourner l'agent
+    '''
     def turnAgent(self, agent, orientation):
         self.notTouched()
         if orientation == Turn.RIGHT:
