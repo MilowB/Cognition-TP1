@@ -18,9 +18,15 @@ class Square:
         self._char = char
         self.x = x
         self.y = y
+        self.touched = False
 
     def isEmpty(self):
         if len(self._filled) == 0:
+            return True
+        return False
+
+    def isWall(self):
+        if self.block == "B":
             return True
         return False
 

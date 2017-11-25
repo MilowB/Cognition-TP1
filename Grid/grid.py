@@ -1,5 +1,6 @@
 from map import *
 from gui import *
+from turn import *
 
 class Grid:
     def __init__(self, g, m, a, d, name):
@@ -17,10 +18,17 @@ class Grid:
     Retour : résultat du mouvement de l'agent (1 si mur, 2 sinon)
     '''
     def step(self, agent, action):
+        square = None
+        square_touched = None
         #Mise a jour de la pile de cases parcourues
         squareTmp = self.map.agentNumSquare(agent)
         agent.savePosition(squareTmp)
-        square = self.map.moveAgent(agent, action)
+        if action < 1:
+            square = self.map.moveAgent(agent)
+        elif action < 2:
+            square_touched = self.map.touch(agent)
+        else:
+            self.map.turnAgent(agent, Turn(action))
         #Mise a jour de la position courante
         agent.setCurrentPosition(square)
 
@@ -30,9 +38,9 @@ class Grid:
 
         result = None
         if self._name == "env1":
-            result = self.result_for_env1(square, squareTmp, agent)
+            result = self.result_for_env1(square, squareTmp, square_touched, agent)
         else:
-            result = self.result_generic_env(square, squareTmp, agent)
+            result = self.result_generic_env(square, squareTmp, square_touched, agent)
         return result
     
     def disableDisplay(self):
@@ -63,10 +71,16 @@ class Grid:
     '''
     Objectif : indique le bon retour de l'environnement
     '''
-    def result_generic_env(self, square, old_square, agent):
-        #Si l'agent n'a pas bougé alors il a rencontré un mur
-        if square.equal(old_square):
-            return 1
+    def result_generic_env(self, square, old_square, square_touched, agent):
+        if not square is None:
+            #Si l'agent n'a pas bougé alors il a rencontré un mur
+            if square.equal(old_square):
+                return 1
+            return 2
+        elif not square_touched is None:
+            if square_touched.isWall():
+                return 1
+            return 2
         return 2
 
 
@@ -74,17 +88,23 @@ class Grid:
     Objectif : indique le bon retour de l'environnement spécifiquement par rapport à l'env1
     qui a des règles un peu particulières sur l'alternance e1 / e2
     '''
-    def result_for_env1(self, square, old_square, agent):
+    def result_for_env1(self, square, old_square, square_touched, agent):
         #Regle de l'environnement : alternance e1 / e2 pour retour r2
         #La case objectif bouge pour de manière à faire apprendre à l'agent cette alternance
-        if not square.equal(old_square) and self.map.isOnObjective(agent):
-            self.map.moveObjOnEmptySquare()
-        elif square.equal(old_square) and self.map.isOnObjective(agent):
-            pass
-        elif square.equal(old_square):
-            self.map.moveObjOnEmptySquare()
+        if not square is None:
+            if not square.equal(old_square) and self.map.isOnObjective(agent):
+                self.map.moveObjOnEmptySquare()
+            elif square.equal(old_square) and self.map.isOnObjective(agent):
+                pass
+            elif square.equal(old_square):
+                self.map.moveObjOnEmptySquare()
 
-        #Si l'agent n'a pas bougé alors il a rencontré un mur
-        if square.equal(old_square):
-            return 1
+            #Si l'agent n'a pas bougé alors il a rencontré un mur
+            if square.equal(old_square):
+                return 1
+            return 2
+        elif not square_touched is None:
+            if square_touched.isWall():
+                return 1
+            return 2
         return 2

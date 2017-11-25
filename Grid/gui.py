@@ -29,15 +29,15 @@ class GUI:
         self.squareToDisplay = []
         self.agentToDisplay = []
         for square in map.squares:
-            self.square(square.end, square.color, square._char, (square.x * self.squareWidth) - 75, (square.y * self.squareWidth) - 75)
+            self.square(square.end, square.color, square._char, (square.x * self.squareWidth) - 75, (square.y * self.squareWidth) - 75, square.touched)
             for ag in square._filled:
-                self.agent(square, ag.color)
+                self.agent(square, ag)
 
     '''
     Objectif : Ajoute un carre a la liste d'affichage
     Param : Int, Int, Int - w, le type de case (mur ou pas), x, y, les coordonnees de la case
     '''
-    def square(self, end, color, w, x, y):
+    def square(self, end, color, w, x, y, touched):
         width = self.squareWidth
         wallWidth = 7
 
@@ -45,9 +45,12 @@ class GUI:
         if end:
             col = color
             
-        self.squareToDisplay.append([col, (x ,y, width, width)])
-        if w == "B":
+        if touched:
+            self.touchedSquare(x, y, 74, 74)
+        elif w == "B":
             self.wall(x, y, 74, 74)
+        else:
+            self.squareToDisplay.append([col, (x ,y, width, width)])
 
     '''
     Objectif : Change le design de la case lorsque c'est un mur
@@ -57,13 +60,17 @@ class GUI:
         color = -2
         self.squareToDisplay.append([color, (x ,y, width, heigth)])
 
+    def touchedSquare(self, x, y, width, heigth):
+        color = -3
+        self.squareToDisplay.append([color, (x ,y, width, heigth)])
+
     '''
     Objectif : Ajout un agent a la liste d'affichage
     Param : Square - la case sur laquelle dessiner l'agent
     '''
-    def agent(self, square, color):
-        marge = 75 - 38
-        self.agentToDisplay.append([color, (marge + (square.x * self.squareWidth) - 75, marge + (square.y * self.squareWidth) - 75 )])
+    def agent(self, square, agent):
+        marge = 0
+        self.agentToDisplay.append([agent, (marge + (square.x * self.squareWidth) - 75, marge + (square.y * self.squareWidth) - 75 )])
 
     '''
     Objectif : Afficher les donnees presentent dans les listes d'affichages (cases et agents)
@@ -84,7 +91,9 @@ class GUI:
                 color = self.shadeColors[self.squareToDisplay[i][0]]
             elif self.squareToDisplay[i][0] == -2:
                 color = pygame.Color(255, 255, 255, 255)
+            elif self.squareToDisplay[i][0] == -3:
+                color = pygame.Color(200, 0, 0, 255)
             pygame.draw.rect(self.screen,  color, self.squareToDisplay[i][1], 0)
         for i in range(len(self.agentToDisplay)):
-            pygame.draw.circle(self.screen,  self.colors[self.agentToDisplay[i][0]], self.agentToDisplay[i][1], 35, 0)
+            self.agentToDisplay[i][0].draw(self.screen, self.agentToDisplay[i][1])
         pygame.display.flip()

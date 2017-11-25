@@ -11,15 +11,16 @@ from Strategy import *
 from Agent import *
 from SmartAgent import *
 from totalRecall import *
+from dull import *
 from env import *
 from envBuilder import *
-from grid import *
+from grid import Grid
 import time
 from env_dif import *
 
 
 def main():
-    __ENVIRONMENT__ = "env1"
+    __ENVIRONMENT__ = "maze"
     # Afficher ou non l'interface
     __GUI__ = True
 
@@ -29,16 +30,19 @@ def main():
     # Creation de la grille
     env = Grid(gui, map, agents, __GUI__, __ENVIRONMENT__)
 
-    motivation = {"1": -1, "2": 1}
-
+    motivation = {"01": -10, "02": 10, "11": -1, "12": -1, "22": -2, "32": -2}
 
     strat = Strategy(motivation)
     # agent = SmartAgent(strat, 100, ["▲", "▼", "►", "◄"])
 
     # agent = SmartAgent(strat, 20, ["▲", "▼"])
-#    env = Env({'0': "1", '1': "2"})
-    #  agent = SmartAgent(strat, 20, ["▲", "▼"])
-    agent = TotalRecall(strat, ["▲", "▼"])
+    # env1 = Env({'0': "1", '1': "2"})
+
+    #    agent = SmartAgent(strat, 20, ["▲", "▼"])
+    agent = DullAgent(strat, ["▲", "■", "▶", "◀"])
+    #agent = TotalRecall(strat, ["▲", "■", "▶", "◀"])
+
+
     #envd = Env_Dif()
 
     steps = FLAGS.steps
@@ -48,11 +52,13 @@ def main():
     while i < steps:
         action = agent.chooseExperience(i, steps)
        # result = envd.getResult(str(action))
-        result = env.step(agents[0], action*2)
+        result = env.step(agents[0], action)
 
         reward = agent.get_reward(result)
         agent.memory()
         agent.tracer(reward, i)
+        if i > steps - 500:
+            time.sleep(0.2)
         #time.sleep(0.3)
         if FLAGS.debug:
             print("--------------------------")
@@ -64,10 +70,11 @@ def main():
         i += 1
     agent.tracer(reward, i)
 
-    print(agent.max_inter(agent.interactions))
+    #print(agent.max_inter(agent.interactions))
     # agent.show_inter()
     #    agent.purge()
     # print(agent.best_seq)
+
     agent.show_trace()
     print(agent.motiv)
 
@@ -85,7 +92,7 @@ def main():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--steps', type=int, default=1500,
+    parser.add_argument('--steps', type=int, default=5000,
                         help='number of steps')
     parser.add_argument('--debug', type=bool, default=False,
                         help='Put the debug display')

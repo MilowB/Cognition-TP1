@@ -2,50 +2,44 @@ from Util import *
 import random
 
 
+def swap(action, nb):
+    print(action)
+    of = list(range(0, nb))
+    of.remove(action)
+
+    return random.choice(of)
+
+
 class DullAgent:
-    def __init__(self, strategy, mem, symb):
+    def __init__(self, strategy, symb):
         self.strategy = strategy
         self.last_action = None
         self.actions = []
+        self.results=[]
         self.vals = []
         self.todo = []
         self.best_seq = []
         self.symb = symb
-        self.nbacts = 2
+        self.motiv = 0
+        self.nbacts = len(symb)
         self.trace = ""
         self.ite = ""
 
     def chooseExperience(self, ite, ite_max):
-        if len(self.actions) < self.mem:
-            action = random.randint(0, self.nbacts-1)
-            self.last_action = action
-            return action
-        else:
-            if len(self.todo) == 0:
-                threshold = curiosity(ite, ite_max, self.sum_rew)
-                epsilon = random.random()
 
-                if epsilon < threshold:
-                    action = random.randint(0, 1)
-                    self.last_action = action
-                    print("Je Pars pour une aventure " + str(ite))
-                    return action
-                else:
-                    self.todo = self.find_seq(self.vals)
-                    if len(self.todo) == 0:
-                        print("I'm OUT")
-                        action = random.randint(0, 1)
-                    else:
-                        action = self.todo.pop(0)
-                    self.last_action = action
-                    return action
-            else:
-                action = self.todo.pop(0)
-                self.last_action = action
-                return action
+        if len(self.actions) == 0:
+            self.last_action = random.randint(0, self.nbacts - 1)
+            return self.last_action
+        elif self.last_reward <0:
+            self.last_action = swap(self.last_action, self.nbacts - 1)
+            return self.last_action
+        else:
+            return self.last_action
 
     def get_reward(self, result):
+        self.last_result = result
         self.last_reward = self.strategy.get_reward(result, self.last_action)
+        self.motiv += self.last_reward
         return self.last_reward
 
     def memory(self):
@@ -54,45 +48,15 @@ class DullAgent:
 
         self.actions.append(action)
         self.vals.append(reward)
+        self.results.append(self.last_result)
 
-        if len(self.actions) > self.mem:
-            self.actions.pop(0)
-
-        if len(self.vals) > self.mem:
-            self.vals.pop(0)
-
-    def find_seq(self, vals):
-        max = 0
-        index = []
-        for i in range(0, len(vals)):
-            tempsum = vals[i]
-            i += 1
-            for y in range(i, len(vals)):
-                tempsum += vals[y]
-                if tempsum > max:
-                    max = tempsum
-                    index.clear()
-                    index.append(i - 1)
-                    index.append(y)
-                else:
-                    break
-        result = []
-        if len(vals) > 1 and len(index) == 2:
-            for i in range(index[0], index[1]):
-                result.append(self.actions[i])
-        else:
-            return []
-        if len(result) > len(self.best_seq) and sum(result) > sum(self.best_seq):
-            self.best_seq = result[:]
-        return result
-
+    ''' -------------------- Debug & Display --------------------'''
 
     def show_trace(self):
         print(self.trace)
         print(self.ite)
 
     def pres(self):
-
         print("Salut, ", end="")
         if len(self.todo) > 0:
             print("j'ai ", end="")
