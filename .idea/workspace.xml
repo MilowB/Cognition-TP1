@@ -2,25 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92aa5678-e909-486d-9d19-4f776f67e2c4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Images/turtle.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Images/turtle_small.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Grid/orientation.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Grid/turn.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Agent.py" afterPath="$PROJECT_DIR$/Agent.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/Environments/large_maze" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/Environments/line" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/Environments/long_maze" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/Environments/small_maze" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/basicAgent.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cartesianAgent.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/executer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/Environments/maze" afterPath="$PROJECT_DIR$/Data/Environments/maze" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Grid/agent.py" afterPath="$PROJECT_DIR$/Grid/agent.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Grid/grid.py" afterPath="$PROJECT_DIR$/Grid/grid.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Grid/gui.py" afterPath="$PROJECT_DIR$/Grid/gui.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Grid/map.py" afterPath="$PROJECT_DIR$/Grid/map.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Grid/square.py" afterPath="$PROJECT_DIR$/Grid/square.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SmartAgent.py" afterPath="$PROJECT_DIR$/SmartAgent.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Strategy.py" afterPath="$PROJECT_DIR$/Strategy.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Util.py" afterPath="$PROJECT_DIR$/Util.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dull.py" afterPath="$PROJECT_DIR$/dull.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/interaction.py" afterPath="$PROJECT_DIR$/interaction.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/totalRecall.py" afterPath="$PROJECT_DIR$/totalRecall.py" />
     </list>
     <ignored path="tp1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,7 +27,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/tp1$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1511537029154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/tp1$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1511646985217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -46,18 +40,28 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="79" column="0" lean-forward="true" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+            <state relative-caret-position="397">
+              <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dull.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="maze" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Data/Environments/maze">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dull.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dull.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -70,7 +74,10 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
-              <folding />
+              <folding>
+                <marker date="1511646666494" expanded="true" signature="18:154" ph="..." />
+                <marker date="1511646666494" expanded="true" signature="51:154" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -78,7 +85,7 @@
       <file leaf-file-name="totalRecall.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/totalRecall.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="465">
               <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -91,9 +98,26 @@
         <entry file="file://$PROJECT_DIR$/SmartAgent.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1515">
-              <caret line="102" column="9" lean-forward="true" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="9" />
+              <caret line="104" column="9" lean-forward="false" selection-start-line="104" selection-start-column="9" selection-end-line="104" selection-end-column="9" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <marker date="1511646666474" expanded="true" signature="546:1609" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="587:711" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="725:1609" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="761:1477" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="910:1126" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="1148:1477" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="1495:1609" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="1644:1754" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="1777:2057" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="2133:2897" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="2206:2558" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="2297:2558" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="2366:2510" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="2624:2719" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="2925:2975" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="2996:3302" ph="..." />
+                <marker date="1511646666474" expanded="true" signature="3061:3198" ph="..." />
               </folding>
             </state>
           </provider>
@@ -163,10 +187,10 @@
         <option value="$PROJECT_DIR$/interaction.py" />
         <option value="$PROJECT_DIR$/Strategy.py" />
         <option value="$PROJECT_DIR$/SmartAgent.py" />
-        <option value="$PROJECT_DIR$/Data/Environments/maze" />
         <option value="$PROJECT_DIR$/totalRecall.py" />
         <option value="$PROJECT_DIR$/dull.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/Data/Environments/maze" />
       </list>
     </option>
   </component>
@@ -196,7 +220,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -224,7 +248,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -577,7 +601,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32908705" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32908705" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -660,6 +684,23 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+            <marker date="1511646666474" expanded="true" signature="546:1609" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="587:711" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="725:1609" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="761:1477" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="910:1126" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="1148:1477" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="1495:1609" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="1644:1754" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="1777:2057" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2133:2897" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2206:2558" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2297:2558" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2366:2510" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2624:2719" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2925:2975" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2996:3302" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="3061:3198" ph="..." />
           </folding>
         </state>
       </provider>
@@ -717,6 +758,23 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+            <marker date="1511646666474" expanded="true" signature="546:1609" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="587:711" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="725:1609" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="761:1477" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="910:1126" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="1148:1477" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="1495:1609" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="1644:1754" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="1777:2057" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2133:2897" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2206:2558" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2297:2558" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2366:2510" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2624:2719" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2925:2975" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2996:3302" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="3061:3198" ph="..." />
           </folding>
         </state>
       </provider>
@@ -943,7 +1001,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -996,13 +1053,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/Environments/maze">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="5" lean-forward="false" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/env.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -1015,31 +1065,43 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
-          <folding />
+          <folding>
+            <marker date="1511646666494" expanded="true" signature="18:154" ph="..." />
+            <marker date="1511646666494" expanded="true" signature="51:154" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SmartAgent.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1515">
-          <caret line="102" column="9" lean-forward="true" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="9" />
+          <caret line="104" column="9" lean-forward="false" selection-start-line="104" selection-start-column="9" selection-end-line="104" selection-end-column="9" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+            <marker date="1511646666474" expanded="true" signature="546:1609" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="587:711" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="725:1609" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="761:1477" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="910:1126" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="1148:1477" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="1495:1609" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="1644:1754" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="1777:2057" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2133:2897" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2206:2558" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2297:2558" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2366:2510" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2624:2719" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2925:2975" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="2996:3302" ph="..." />
+            <marker date="1511646666474" expanded="true" signature="3061:3198" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="79" column="0" lean-forward="true" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/totalRecall.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="465">
           <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -1050,10 +1112,26 @@
     <entry file="file://$PROJECT_DIR$/dull.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/Environments/maze">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

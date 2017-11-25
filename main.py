@@ -10,6 +10,8 @@ import argparse
 from Strategy import *
 from Agent import *
 from SmartAgent import *
+from cartesianAgent import *
+from basicAgent import *
 from totalRecall import *
 from dull import *
 from env import *
@@ -19,8 +21,9 @@ import time
 from env_dif import *
 
 
+
 def main():
-    __ENVIRONMENT__ = "maze"
+    __ENVIRONMENT__ = "large_maze"
     # Afficher ou non l'interface
     __GUI__ = True
 
@@ -31,7 +34,6 @@ def main():
     env = Grid(gui, map, agents, __GUI__, __ENVIRONMENT__)
 
     motivation = {"01": -10, "02": 10, "11": -1, "12": -1, "22": -2, "32": -2}
-
     strat = Strategy(motivation)
     # agent = SmartAgent(strat, 100, ["▲", "▼", "►", "◄"])
 
@@ -42,6 +44,10 @@ def main():
     agent = DullAgent(strat, ["▲", "■", "▶", "◀"])
     #agent = TotalRecall(strat, ["▲", "■", "▶", "◀"])
 
+    #agent = SmartAgent(strat, 20, ["▲", "■", "▶", "◀"], 4)
+    #agent = TotalRecall(strat, ["▲", "■", "▶", "◀"])
+    #agent = CartesianAgent(strat, ["▲", "■", "▶", "◀"])
+    #agent = BasicAgent(strat, ["▲", "■", "▶", "◀"])
 
     #envd = Env_Dif()
 
@@ -50,6 +56,8 @@ def main():
 
     result = 0
     while i < steps:
+        if i > steps - 24:
+            time.sleep(1)
         action = agent.chooseExperience(i, steps)
        # result = envd.getResult(str(action))
         result = env.step(agents[0], action)
@@ -59,7 +67,7 @@ def main():
         agent.tracer(reward, i)
         if i > steps - 500:
             time.sleep(0.2)
-        #time.sleep(0.3)
+
         if FLAGS.debug:
             print("--------------------------")
             print("J'ai choisis : " + agent.symb[action])
@@ -68,7 +76,10 @@ def main():
             # agent.pres()
 
         i += 1
-    agent.tracer(reward, i)
+
+
+    #print(agent._bestAction)
+    #agent.tracer(reward, i)
 
     #print(agent.max_inter(agent.interactions))
     # agent.show_inter()
@@ -77,6 +88,7 @@ def main():
 
     agent.show_trace()
     print(agent.motiv)
+
 
     # templ = []
     # print("---- Test succes rate ----")
@@ -88,11 +100,12 @@ def main():
     #     if agent.get_reward(envd.getResult(action)) > 0:
     #         n += 1
     # print("Success rate is :" + str(round((n / len(templ) * 100), 0)) + " %")
+    agent.print_interactions() # @debug
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--steps', type=int, default=5000,
+    parser.add_argument('--steps', type=int, default=10000,
                         help='number of steps')
     parser.add_argument('--debug', type=bool, default=False,
                         help='Put the debug display')

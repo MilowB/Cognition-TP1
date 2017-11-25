@@ -1,6 +1,6 @@
 from Util import *
 import random
-
+import time
 
 class SmartAgent:
     def __init__(self, strategy, mem, symb, nb_actions):
@@ -18,6 +18,8 @@ class SmartAgent:
         self.nb_actions = nb_actions
 
     def chooseExperience(self, ite, ite_max):
+        if ite > ite_max - 50:
+            time.sleep(0.2)
         if len(self.actions) < self.mem:
             action = random.randint(0, self.nb_actions - 1)
             self.last_action = action
