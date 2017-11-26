@@ -21,7 +21,7 @@ from env_dif import *
 
 
 def main():
-    __ENVIRONMENT__ = "large_maze"
+    __ENVIRONMENT__ = "maze"
     # Afficher ou non l'interface
     __GUI__ = True
 
@@ -50,8 +50,10 @@ def main():
 
     result = 0
     while i < steps:
+        '''
         if i > steps - 24:
             time.sleep(1)
+        '''
         action = agent.chooseExperience(i, steps)
         # result = envd.getResult(str(action))
         result = env.step(agents[0], action)
@@ -64,10 +66,10 @@ def main():
             print("J'ai eu : r" + str(result))
             print("Pour : " + str(reward) + " pts")
             agent.pres()
-
+        input()
         i += 1
 
-    print(agent._bestAction)
+    agent.generate_colormap()
     #agent.tracer(reward, i)
 
     #print(agent.max_inter(agent.interactions))

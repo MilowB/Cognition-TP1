@@ -1,11 +1,11 @@
 from Util import *
-import random
 import math
 import time
-from resAction import ResAction
 from interaction import Interaction
+from colormap import *
 from executer import *
 import itertools
+import random
 
 def swap(action, nb):
     of = list(range(0, nb))
@@ -31,6 +31,7 @@ class BasicAgent:
         self.sumReward = 0
         self._bestAction = None
         self._epsilon = 1
+        self._trace = []
 
     '''
     Objectif :  Choisi la prochaine action à faire
@@ -39,17 +40,17 @@ class BasicAgent:
     '''
     def chooseExperience(self, ite, ite_max):
         action = None
+        input()
         
         #print(self._epsilon)
         if (self._executer is None or not self._executer.has_next()) and len(self._interactions) >= len(self._actions):
             r = random.random()
             acts = None
-            '''
-            if curiosity(ite, ite_max) > r:
-                acts = self.heuristicPseudoRandom()
+            
+            if curiosity(ite, ite_max) - 0.05 > r:
+                acts = self.heuristicRandom()
             else:
-            '''
-            acts = self.heuristicGreedy()
+                acts = self.heuristicGreedy()
             if not acts is None:
                 self._executer = Executer(acts.action)
                 self._lastActs = acts
@@ -65,9 +66,6 @@ class BasicAgent:
             action = self._executer.next_action()
 
         self._lastAction = action
-        #print("action : ", action)
-        #print("taille interaction : ", len(self._interactions))
-        #self.print_interactions() # @debug
         return action
 
     '''
@@ -78,7 +76,7 @@ class BasicAgent:
     def find_combinaison(self, interaction):
         #Parcours de la mémoire pour rechercher les bonnes interactions
         for i in range(len(self._memory) - 1):
-            if self._memory[i] == interaction and self._memory[i + 1].proclivity + interaction.proclivity > interaction.proclivity:
+            if self._memory[i] == interaction and self._memory[i + 1].proclivity > 0 and interaction.proclivity > 0:
                 if self._memory[i] != self._memory[i + 1]:
                     valence = max(self._memory[i].result, self._memory[i + 1].result)
                     self.addInteractions(interaction.merge(self._memory[i + 1]), valence, False)
@@ -110,19 +108,21 @@ class BasicAgent:
     '''
     def get_reward(self, result):
         self._lastReward = self.strategy.get_reward(result, self._lastAction)
-
+        #garde une trace des récompenses pour plotter le résultat
+        self._trace.append(self._lastReward)
         self.sumReward += self._lastReward
         #Met à jour les valeurs de la dernière interaction faite si elle est finie
         if not self._executer.has_next():
             self._memory.append(self._lastActs)
+            self.updateInteraction(self._lastActs, self.sumReward)
             #Si l'interaction était un bon enchainement avec l'autre les merge
             last_index = len(self._memory) - 1
-            if self._memory[last_index - 1].proclivity > 0:
-                if self.sumReward > 0:
-                    if self._memory[last_index - 1] != self._memory[last_index]:
-                        self.addInteractions(self._memory[last_index - 1].merge(self._memory[last_index]), self.sumReward, False)
-                        print("Creation d'interaction")
-            self.updateInteraction(self._lastActs, self.sumReward)
+            #if self._memory[last_index - 1].proclivity > 0:
+            if self._memory[last_index].proclivity > 0 and self._memory[last_index - 1].proclivity > 0:
+                if self._memory[last_index - 1] != self._memory[last_index]:
+                    self.addInteractions(self._memory[last_index - 1].merge(self._memory[last_index]), self.sumReward, False)
+
+                
             self.sumReward = 0
 
         return self._lastReward
@@ -169,6 +169,22 @@ class BasicAgent:
         if argmax is None:
             return None
         return argmax.result
+
+
+    '''
+    Objectif : Choisi les actions au hasard
+    Retour : Interaction - aléatoire
+    '''
+    def heuristicMinWeight(self):
+        min = math.inf
+        argmin = None
+        for interaction in self._interactions:
+            val = interaction.weight
+            if val < min:
+                min = val
+                argmin = interaction
+        return argmin
+
 
     '''
     Objectif : Choisi les actions au hasard
@@ -238,10 +254,10 @@ class BasicAgent:
                     found = True
                     break             
         return found
-
+                
     '''
     Objectif : Genere un produit cartésien des données passées en param
-    Retour : Tableau de listes
+    Retour : Tableau de tuples
     '''
     def cartesian(self, data, size):
         d = []
@@ -267,3 +283,14 @@ class BasicAgent:
         #Suppression tuple vide
         actions = [t for t in actions if t != ()]
         return actions
+
+    def generate_colormap(self):
+        v_min = min(self._trace)
+        v_max = max(self._trace)
+        transformed = []
+        for value in self._trace:
+            new_value = rescale(value, v_min, v_max, [0, 1])
+            transformed.append(new_value)
+
+        colormap = ColorMap(self._trace)
+        colormap.build()
