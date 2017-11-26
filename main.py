@@ -11,7 +11,6 @@ from Strategy import *
 from Agent import *
 from SmartAgent import *
 from cartesianAgent import *
-from basicAgent import *
 from totalRecall import *
 from env import *
 from envBuilder import *
@@ -40,8 +39,7 @@ def main():
 
     #agent = SmartAgent(strat, 20, ["▲", "■", "▶", "◀"], 4)
     #agent = TotalRecall(strat, ["▲", "■", "▶", "◀"])
-    #agent = CartesianAgent(strat, ["▲", "■", "▶", "◀"])
-    agent = BasicAgent(strat, ["▲", "■", "▶", "◀"])
+    agent = CartesianAgent(strat, ["▲", "■", "▶", "◀"])
 
     #envd = Env_Dif()
 
@@ -66,10 +64,8 @@ def main():
             print("J'ai eu : r" + str(result))
             print("Pour : " + str(reward) + " pts")
             agent.pres()
-        input()
         i += 1
 
-    agent.generate_colormap()
     #agent.tracer(reward, i)
 
     #print(agent.max_inter(agent.interactions))
