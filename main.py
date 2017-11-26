@@ -12,7 +12,6 @@ from OldStrat import *
 from Agent import *
 from SmartAgent import *
 from cartesianAgent import *
-from basicAgent import *
 from totalRecall import *
 from dull import *
 from env import *
@@ -67,7 +66,6 @@ def main():
     agent = DullAgent(strat, ["▲", "■", "▶", "◀"])
     #agent = TotalRecall(strat, ["▲", "■", "▶", "◀"])
     #agent = CartesianAgent(strat, ["▲", "■", "▶", "◀"])
-    #agent = BasicAgent(strat, ["▲", "■", "▶", "◀"])
 
     #Exécuter cet agent pour les premiers environnements (nombre d'actions différent)
     ''' Firsts Env'''
@@ -80,8 +78,8 @@ def main():
             time.sleep(0.3)
 
         action = agent.chooseExperience(i, FLAGS.steps)
-        result = env.getResult(str(action)) # To use if the task is not a Maze
-        #result = env.step(agents[0], action)  # To use if the task is a  Maze
+        #result = env.getResult(str(action)) # To use if the task is not a Maze
+        result = env.step(agents[0], action)  # To use if the task is a  Maze
         reward = agent.get_reward(result)
 
         if agent._name != "cartesian":
