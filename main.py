@@ -60,7 +60,7 @@ def main():
 
     #agent = DullAgent(strat, ["▲", "■", "▶", "◀"])
     #agent = TotalRecall(strat, ["▲", "■", "▶", "◀"])
-    #agent = CartesianAgent(strat, ["▲", "■", "▶", "◀"])
+    agent = CartesianAgent(strat, ["▲", "■", "▶", "◀"])
     #agent = SmartAgent(strat, 100, ["▲", "■", "►", "◄"])
 
     i = 0
@@ -85,7 +85,6 @@ def main():
             print("Pour : " + str(reward) + " pts")
         i += 1
     describe(agent)
-
 
 
 def describe(agent):

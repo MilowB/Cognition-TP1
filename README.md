@@ -1,3 +1,6 @@
+Mickael Bettinelli
+Theo Jaunet
+
 # Cognition-Projet
 
 This project was made on Python 3.x
