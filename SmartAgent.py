@@ -16,6 +16,8 @@ class SmartAgent:
         self.trace = ""
         self.ite = ""
         self.nb_actions = len(symb)
+        self._name = "smart"
+
 
     def chooseExperience(self, ite, ite_max):
         if ite > ite_max - 50:

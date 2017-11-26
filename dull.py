@@ -27,6 +27,7 @@ class DullAgent:
         self.nbacts = len(symb)
         self.trace = ""
         self.ite = ""
+        self._name = "dull"
 
     def chooseExperience(self, ite, ite_max):
 

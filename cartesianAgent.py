@@ -32,6 +32,7 @@ class CartesianAgent:
         self._bestAction = None
         self._epsilon = 1
         self._trace = []
+        self._name = "cartesian"
 
     '''
     Objectif :  Choisi la prochaine action à faire

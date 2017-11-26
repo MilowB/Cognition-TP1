@@ -29,6 +29,8 @@ class TotalRecall:
         self.nbacts = len(symb)
         self.motiv = 0
         self.last = False
+        self._name = "total"
+
 
     # TODO : More exploration ( other than merge)
     # TODO : find seq ?

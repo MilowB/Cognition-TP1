@@ -22,7 +22,7 @@ from env_dif import *
 
 def init_maze_task():
     #env1, small_maze, maze, large_maze...
-    __ENVIRONMENT__ = "env1"
+    __ENVIRONMENT__ = "small_maze"
 
     # Afficher ou non l'interface
     __GUI__ = True
@@ -53,29 +53,29 @@ def init_alter_task():
 
 def main():
     agents, env, motivation = init_maze_task()
-    # env,motivation =init_simple_task()
-    # env,motivation =init_alter_task()
+    #env,motivation = init_simple_task()
+    #env,motivation = init_alter_task()
 
     strat = Strategy(motivation)
 
     #agent = DullAgent(strat, ["▲", "■", "▶", "◀"])
     #agent = TotalRecall(strat, ["▲", "■", "▶", "◀"])
     #agent = CartesianAgent(strat, ["▲", "■", "▶", "◀"])
-    #agent = BasicAgent(strat, ["▲", "■", "▶", "◀"])
-    agent = SmartAgent(strat, 100, ["▲", "■", "►", "◄"])
+    #agent = SmartAgent(strat, 100, ["▲", "■", "►", "◄"])
 
     i = 0
     while i < FLAGS.steps:
-
-        if i > FLAGS.steps - 1:
+        if i > FLAGS.steps - 20:
             time.sleep(0.3)
 
         action = agent.chooseExperience(i, FLAGS.steps)
-        # result = env.getResult(str(action)) # To use if the task is not a Maze
+        #result = env.getResult(str(action)) # To use if the task is not a Maze
         result = env.step(agents[0], action)  # To use if the task is a  Maze
 
         reward = agent.get_reward(result)
-        agent.memory() # TODO : ------- > comment this line to see memory usage efficiency
+
+        if agent._name != "cartesian":
+            agent.memory() # TODO : ------- > comment this line to see memory usage efficiency
         #agent.tracer(reward, i)
 
         if FLAGS.debug:
@@ -93,8 +93,9 @@ def describe(agent):
     # agent.show_inter()
     # print(agent.best_seq)
 
-    agent.show_trace()
-    print(agent.motiv)
+    if agent._name != "cartesian":
+        agent.show_trace()
+        print(agent.motiv)
 
     #agent.print_interactions()  # @debug
 
