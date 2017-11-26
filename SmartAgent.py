@@ -1,4 +1,4 @@
-from Util import *
+from Util import curiosity
 import random
 import time
 
@@ -18,15 +18,13 @@ class SmartAgent:
         self.nb_actions = len(symb)
 
     def chooseExperience(self, ite, ite_max):
-        if ite > ite_max - 50:
-            time.sleep(0.2)
         if len(self.actions) < self.mem:
             action = random.randint(0, self.nb_actions - 1)
             self.last_action = action
             return action
         else:
             if len(self.todo) == 0:
-                threshold = curiosity(ite, ite_max, self.sum_rew)
+                threshold = curiosity(ite, ite_max)
                 epsilon = random.random()
 
                 if epsilon < threshold:

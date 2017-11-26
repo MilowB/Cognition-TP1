@@ -43,10 +43,8 @@ class DullAgent:
                     self.todo = self.what_happend()
 
                     if len(self.todo) == 0:
-                        print("--------- RAND ---------------")
                         self.last_action = swap(self.last_action, self.nbacts - 1)
                 else:
-                    print("--------- RAND Explo ---------------")
                     print(self.last_action)
                     seqs = [random.randrange(0, self.nbacts, 1) for _ in range(random.randint(1,self.nbacts-1*2))]
                     temp = self.testint(seqs)

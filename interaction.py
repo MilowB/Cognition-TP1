@@ -3,7 +3,7 @@ class Interaction:
         self.action = a
         self.result = r
         self.weight = w
-        self.evaporation = 0.9
+        self.evaporation = 0.99
         self.nb = 1
         self.sum = 0
         self.proclivity = self.result * self.weight
