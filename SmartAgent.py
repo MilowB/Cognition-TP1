@@ -16,6 +16,8 @@ class SmartAgent:
         self.trace = ""
         self.ite = ""
         self.nb_actions = len(symb)
+        self._name = "smart"
+
 
     def chooseExperience(self, ite, ite_max):
         if len(self.actions) < self.mem:
@@ -30,7 +32,6 @@ class SmartAgent:
                 if epsilon < threshold:
                     action = random.randint(0, self.nb_actions - 1)
                     self.last_action = action
-                    #print("Je Pars pour une aventure " + str(ite))
                     return action
                 else:
                     self.todo = self.find_seq(self.vals)

@@ -1,7 +1,7 @@
 from Util import *
-import random
 from interaction import Interaction
-
+from colormap import *
+import random
 
 def swap(action, nb):
     of = list(range(0, nb))
@@ -27,6 +27,7 @@ class DullAgent:
         self.nbacts = len(symb)
         self.trace = ""
         self.ite = ""
+        self._name = "dull"
 
     def chooseExperience(self, ite, ite_max):
 

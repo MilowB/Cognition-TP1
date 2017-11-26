@@ -43,7 +43,7 @@ def init_maze_task():
 
 def init_simple_task():
     env = Env({'0': "1", '1': "2"})
-    motivation = {"0": 1, "1": 2}
+    motivation = {"01": -1, "02": 1, "11": -1, "12": 1}
     return env, motivation
 
 
@@ -54,9 +54,9 @@ def init_alter_task():
 
 
 def main():
-   # agents, env, motivation = init_maze_task()
-    env,motivation =init_alter_task()
-    # env,motivation =init_alter_task()
+    agents, env, motivation = init_maze_task()
+    #env,motivation = init_simple_task()
+    #env,motivation = init_alter_task()
 
     strat = Strategy(motivation)
 
@@ -64,7 +64,7 @@ def main():
     ''' First envs'''
     #strat = OldStrategy()
 
-    #agent = DullAgent(strat, ["▲", "■", "▶", "◀"])
+    agent = DullAgent(strat, ["▲", "■", "▶", "◀"])
     #agent = TotalRecall(strat, ["▲", "■", "▶", "◀"])
     #agent = CartesianAgent(strat, ["▲", "■", "▶", "◀"])
     #agent = BasicAgent(strat, ["▲", "■", "▶", "◀"])
@@ -75,15 +75,17 @@ def main():
     i = 0
 
     while i < FLAGS.steps:
-
-
+        if i > FLAGS.steps - 20:
+            time.sleep(0.3)
 
         action = agent.chooseExperience(i, FLAGS.steps)
         result = env.getResult(str(action)) # To use if the task is not a Maze
         #result = env.step(agents[0], action)  # To use if the task is a  Maze
         reward = agent.get_reward(result)
-        agent.memory() # TODO : ------- > comment this line to see memory usage efficiency
-        agent.tracer(reward, i)
+
+        if agent._name != "cartesian":
+            agent.memory() # TODO : ------- > comment this line to see memory usage efficiency
+        #agent.tracer(reward, i)
 
         if FLAGS.debug:
             print("--------------------------")
@@ -99,15 +101,17 @@ def describe(agent):
     # agent.show_inter()
     # print(agent.best_seq)
 
-    agent.show_trace()
-    #print(agent.motiv)
+    if agent._name != "cartesian":
+        agent.show_trace()
+        print(agent.motiv)
 
     #agent.print_interactions()  # @debug
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--steps', type=int, default=100,
+    #Dans le cas du CartesianAgent, monter le nombre default d'iterations à 10.000
+    parser.add_argument('--steps', type=int, default=7000,
                         help='number of steps')
     parser.add_argument('--debug', type=bool, default=False,
                         help='Put the debug display')

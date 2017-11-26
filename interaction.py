@@ -46,7 +46,7 @@ class Interaction:
             acts.append(a)
         
         result = self.result + interaction.result
-        weight = max(self.weight, interaction.weight)
+        weight = 1
         return Interaction(acts, result, weight)
 
     def size(self):

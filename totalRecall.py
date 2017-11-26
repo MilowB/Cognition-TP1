@@ -1,10 +1,10 @@
 from Util import *
-import random
 import math
 import time
 from resAction import ResAction
 from interaction import Interaction
-
+from colormap import *
+import random
 
 def swap(action, nb):
     of = list(range(0, nb))
@@ -29,6 +29,9 @@ class TotalRecall:
         self.nbacts = len(symb)
         self.motiv = 0
         self.last = False
+        self._name = "total"
+        self._trace = []
+
 
     # TODO : More exploration ( other than merge)
     # TODO : find seq ?
@@ -69,7 +72,7 @@ class TotalRecall:
     def get_reward(self, result):
 
         self.last_reward = self.strategy.get_reward(result, self.last_action)
-
+        self._trace.append(self.last_reward)
         if self.last:
 
             self.saveOrUpdate(self.inter.action, self.itwas())
@@ -222,3 +225,17 @@ class TotalRecall:
                 index.append(w)
 
         return index
+
+    '''
+    Objectif : Genere la trace
+    '''
+    def generate_colormap(self):
+        v_min = min(self._trace)
+        v_max = max(self._trace)
+        transformed = []
+        for value in self._trace:
+            new_value = rescale(value, v_min, v_max, [0, 1])
+            transformed.append(new_value)
+
+        colormap = ColorMap(self._trace)
+        colormap.build()
