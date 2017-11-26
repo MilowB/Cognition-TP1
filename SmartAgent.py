@@ -3,7 +3,7 @@ import random
 import time
 
 class SmartAgent:
-    def __init__(self, strategy, mem, symb, nb_actions):
+    def __init__(self, strategy, mem, symb):
         self.strategy = strategy
         self.last_action = None
         self.sum_rew = 1
@@ -15,7 +15,7 @@ class SmartAgent:
         self.symb = symb
         self.trace = ""
         self.ite = ""
-        self.nb_actions = nb_actions
+        self.nb_actions = len(symb)
 
     def chooseExperience(self, ite, ite_max):
         if ite > ite_max - 50:

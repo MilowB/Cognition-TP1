@@ -21,91 +21,87 @@ import time
 from env_dif import *
 
 
+def init_maze_task():
+    __ENVIRONMENT__ = "maze"
 
-def main():
-    __ENVIRONMENT__ = "large_maze"
     # Afficher ou non l'interface
     __GUI__ = True
 
     # Instanciation des builders
     envbuilder = EnvBuilder(__ENVIRONMENT__)
     gui, map, agents = envbuilder.build()
+
     # Creation de la grille
     env = Grid(gui, map, agents, __GUI__, __ENVIRONMENT__)
 
-    motivation = {"01": -10, "02": 10, "11": -1, "12": -1, "22": -2, "32": -2}
+    motivation = {"01": -5, "02": 10, "11": -1, "12": -1, "22": -3, "32": -3}
+
+    return agents, env, motivation
+
+
+def init_simple_task():
+    env = Env({'0': "1", '1': "2"})
+    motivation = {"01": -1, "02": 1, "11": -1, "12": 1}
+    return env, motivation
+
+
+def init_alter_task():
+    env = Env_Dif()
+    motivation = {"01": -1, "02": 1, "11": -1, "12": 1}
+    return env, motivation
+
+
+def main():
+    agents, env, motivation = init_maze_task()
+    # env,motivation =init_simple_task()
+    # env,motivation =init_alter_task()
+
     strat = Strategy(motivation)
-    # agent = SmartAgent(strat, 100, ["▲", "▼", "►", "◄"])
 
-    # agent = SmartAgent(strat, 20, ["▲", "▼"])
-    # env1 = Env({'0': "1", '1': "2"})
-
-    #    agent = SmartAgent(strat, 20, ["▲", "▼"])
     agent = DullAgent(strat, ["▲", "■", "▶", "◀"])
-    #agent = TotalRecall(strat, ["▲", "■", "▶", "◀"])
-
-    #agent = SmartAgent(strat, 20, ["▲", "■", "▶", "◀"], 4)
     #agent = TotalRecall(strat, ["▲", "■", "▶", "◀"])
     #agent = CartesianAgent(strat, ["▲", "■", "▶", "◀"])
     #agent = BasicAgent(strat, ["▲", "■", "▶", "◀"])
+    #agent = SmartAgent(strat, 100, ["▲", "■", "►", "◄"])
 
-    #envd = Env_Dif()
-
-    steps = FLAGS.steps
     i = 0
 
-    result = 0
-    while i < steps:
-        if i > steps - 24:
-            time.sleep(1)
-        action = agent.chooseExperience(i, steps)
-       # result = envd.getResult(str(action))
-        result = env.step(agents[0], action)
+    while i < FLAGS.steps:
+
+        if i > FLAGS.steps - 150:
+            time.sleep(0.3)
+
+        action = agent.chooseExperience(i, FLAGS.steps)
+        # result = env.getResult(str(action)) # To use if the task is not a Maze
+        result = env.step(agents[0], action)  # To use if the task is a  Maze
 
         reward = agent.get_reward(result)
-        agent.memory()
-        agent.tracer(reward, i)
-        if i > steps - 500:
-            time.sleep(0.2)
+        agent.memory() # TODO : ------- > comment this line to see memory usage efficiency
+        #agent.tracer(reward, i)
 
         if FLAGS.debug:
             print("--------------------------")
             print("J'ai choisis : " + agent.symb[action])
             print("J'ai eu : r" + str(result))
             print("Pour : " + str(reward) + " pts")
-            # agent.pres()
 
         i += 1
+    describe(agent)
 
-
-    #print(agent._bestAction)
-    #agent.tracer(reward, i)
-
-    #print(agent.max_inter(agent.interactions))
+def describe(agent):
+    # print(agent.max_inter(agent.interactions))
     # agent.show_inter()
-    #    agent.purge()
     # print(agent.best_seq)
 
     agent.show_trace()
     print(agent.motiv)
 
-
-    # templ = []
-    # print("---- Test succes rate ----")
-    # for it in range(0, 100):
-    #     templ += agent.max_inter(agent.interactions)
-    # n = 0
-    #
-    # for action in templ:
-    #     if agent.get_reward(envd.getResult(action)) > 0:
-    #         n += 1
-    # print("Success rate is :" + str(round((n / len(templ) * 100), 0)) + " %")
-    agent.print_interactions() # @debug
+    #agent.print_interactions()  # @debug
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--steps', type=int, default=10000,
+    parser.add_argument('--steps', type=int, default=700,
                         help='number of steps')
     parser.add_argument('--debug', type=bool, default=False,
                         help='Put the debug display')

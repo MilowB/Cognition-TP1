@@ -45,7 +45,7 @@ class TotalRecall:
 
         else:
             if len(self.todo) == 0:
-                threshold = curiosity(ite, ite_max, 1)
+                threshold = curiosity(ite, ite_max)
                 epsilon = random.random()
 
                 if epsilon < threshold:

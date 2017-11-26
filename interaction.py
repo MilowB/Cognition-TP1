@@ -3,12 +3,12 @@ class Interaction:
         self.action = a
         self.result = r
         self.weight = w
-        self.evaporation = 0.999
+        self.evaporation = 0.9
         self.nb = 1
         self.sum = 0
         self.proclivity = self.result * self.weight
 
-    def maj(self, res):
+    def maj(self, res): #Todo: is avg ok ?
         self.nb += 1
         self.sum += res
 
@@ -22,7 +22,7 @@ class Interaction:
     '''
     Objectif : Indique si une interaction est un sous ensemble de l'interaction passée en param
     Param : Interaction
-    Retour : True is l'interaction est un sous ensemble de celle pasée en param, False sinon
+    Retour : True si l'interaction est un sous ensemble de celle pasée en param, False sinon
     '''
     def is_subinteraction(self, interaction):
         if len(self.action) > len(interaction.action):
