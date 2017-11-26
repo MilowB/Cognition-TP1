@@ -45,7 +45,7 @@ class ColorMap():
         ret = []
         cpy_data = list(data)
         cpt = 0
-        while self.nb_elements(ret) < len(cpy_data) - len(cpy_data) / 100:
+        while self.nb_elements(ret) < len(cpy_data) - 5000:
             new_arr = []
             for i in range(len(cpy_data)):
                 if i % heigth == 0:

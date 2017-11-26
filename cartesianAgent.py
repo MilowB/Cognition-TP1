@@ -284,6 +284,9 @@ class CartesianAgent:
         actions = [t for t in actions if t != ()]
         return actions
 
+    '''
+    Objectif : Genere la trace
+    '''
     def generate_colormap(self):
         v_min = min(self._trace)
         v_max = max(self._trace)

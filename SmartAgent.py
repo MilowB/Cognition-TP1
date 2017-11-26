@@ -3,7 +3,7 @@ import random
 import time
 
 class SmartAgent:
-    def __init__(self, strategy, mem, symb, nb_actions):
+    def __init__(self, strategy, mem, symb):
         self.strategy = strategy
         self.last_action = None
         self.sum_rew = 1
@@ -15,7 +15,7 @@ class SmartAgent:
         self.symb = symb
         self.trace = ""
         self.ite = ""
-        self.nb_actions = nb_actions
+        self.nb_actions = len(symb)
 
     def chooseExperience(self, ite, ite_max):
         if ite > ite_max - 50:
@@ -26,13 +26,12 @@ class SmartAgent:
             return action
         else:
             if len(self.todo) == 0:
-                threshold = curiosity(ite, ite_max, self.sum_rew)
+                threshold = curiosity(ite, ite_max)
                 epsilon = random.random()
 
                 if epsilon < threshold:
                     action = random.randint(0, self.nb_actions - 1)
                     self.last_action = action
-                    #print("Je Pars pour une aventure " + str(ite))
                     return action
                 else:
                     self.todo = self.find_seq(self.vals)

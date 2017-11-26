@@ -6,7 +6,7 @@ if cmd_subfolder_grid not in sys.path:
     sys.path.insert(0, cmd_subfolder_grid)
 
 from reader import *
-from parser import *
+from Grid.parser import Parser
 
 '''
 Objectif :
@@ -18,5 +18,6 @@ class EnvBuilder:
 
     def build(self):
         path = "Data/Environments/"
+
         parser = Parser(path + self.name)
         return parser.parse()
