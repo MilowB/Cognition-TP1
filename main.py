@@ -69,6 +69,7 @@ def main():
     #agent = CartesianAgent(strat, ["▲", "■", "▶", "◀"])
     #agent = BasicAgent(strat, ["▲", "■", "▶", "◀"])
 
+    #Exécuter cet agent pour les premiers environnements (nombre d'actions différent)
     ''' Firsts Env'''
     #agent = SmartAgent(strat,100,  ["►", "◄"])
 
