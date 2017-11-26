@@ -73,7 +73,18 @@ In order to switch the agent, you need to comment the actual agent and uncomment
 > Here DullAgent is seleted. Please note that the second argument is to produce the trace. You may want to change some symbols to fit your needs.
   the second argument on SmartAgent is the memory length it may be changed to see any agent behaviour evolution.
 
+### Display the trace
 
+To display the execution, you need 2 lines. Some agents may not have this possibility yet. But to display it, you must make sure the two following lines are uncommented in main.py
+
+``` python
+#in main()
+agent.tracer(reward, i)
+
+#in describe()
+ agent.show_trace()
+
+```
 
 ### Misc
 
